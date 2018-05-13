@@ -12,13 +12,13 @@
             android:id="@+id/nav_change_pwd"
             android:icon="@drawable/ic_menu_change_pwd"
             android:title="Change Password" />
-        <item
+     <!--   <item
             android:id="@+id/nav_pwd_Generator"
             android:icon="@drawable/ic_menu_change_pwd"
-            android:title="Password Generator" />
+            android:title="Password Generator" />-->
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Communication">
         <menu>
             <item
                 android:id="@+id/nav_share"
