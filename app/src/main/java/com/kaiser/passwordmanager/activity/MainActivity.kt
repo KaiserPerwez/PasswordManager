@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+        loadFragment(R.id.frame_content, PasswordListFragment())
     }
 
     override fun onBackPressed() {
