@@ -5,7 +5,7 @@ import android.app.Fragment
 import android.content.Context
 import android.content.SharedPreferences
 
-fun Context.toast(msg: String = "NO msg") {
+fun Context?.toast(msg: String = "NO msg") {
     android.widget.Toast.makeText(this, msg, android.widget.Toast.LENGTH_SHORT).show()
 }
 
