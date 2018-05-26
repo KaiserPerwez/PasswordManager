@@ -20,5 +20,5 @@ interface PasswordDao {
     fun deleteAll()
 
     @Query("SELECT * FROM PasswordTable")
-    fun getAll():List<PasswordModel>
+    fun getAll(): List<PasswordModel>
 }

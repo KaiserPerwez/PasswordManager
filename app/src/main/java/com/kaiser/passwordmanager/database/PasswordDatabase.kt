@@ -14,13 +14,16 @@ abstract class PasswordDatabase : RoomDatabase() {
 
     companion object {
         private var INSTANCE: PasswordDatabase? = null
+        //@get syncronised
+        //TODO:Modify this syncronisation as in giftpool
         fun getInstance(context: Context): PasswordDatabase? {
             if (INSTANCE == null) {
                 synchronized(PasswordDatabase) {
                     INSTANCE = Room.databaseBuilder(context,
                             PasswordDatabase::class.java,
                             DATABASE_NAME)
-                            .allowMainThreadQueries()
+                            .fallbackToDestructiveMigration()
+                            //   .allowMainThreadQueries()
                             .build()
                 }
             }

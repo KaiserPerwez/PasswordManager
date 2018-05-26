@@ -2,12 +2,10 @@ package com.kaiser.passwordmanager.activity
 
 import android.app.Fragment
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import android.view.MenuItem
 import com.kaiser.passwordmanager.R
 import com.kaiser.passwordmanager.activity.utils.loadFragment
@@ -62,11 +60,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         lateinit var fragment: Fragment
         when (item.itemId) {
             R.id.nav_home -> {
-                toast("Loaded Home")
+                //toast("Loaded Home")
+                title = "Home"
                 fragment = PasswordListFragment()
             }
             R.id.nav_change_pwd -> {
                 toast("Loaded Change Pwd")
+                title = "Change Password"
                 fragment = ChangePasswordFragment()
             }
             R.id.nav_share -> {
