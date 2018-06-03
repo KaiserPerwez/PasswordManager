@@ -15,6 +15,6 @@ fun SharedPreferences.setKeyDefaultPrefs(key: String, value: String) {
     editor.apply()
 }
 
-fun Activity.loadFragment(contentFrame: Int, fragment: Fragment) {
-    this.fragmentManager.beginTransaction().replace(contentFrame, fragment).commit()
+fun Activity?.loadFragment(contentFrame: Int, fragment: Fragment) {
+    this?.fragmentManager?.beginTransaction()?.replace(contentFrame, fragment)?.commit()
 }

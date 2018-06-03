@@ -1,12 +1,16 @@
 package com.kaiser.passwordmanager.activity
 
 import android.app.Fragment
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import com.kaiser.passwordmanager.R
 import com.kaiser.passwordmanager.activity.utils.loadFragment
 import com.kaiser.passwordmanager.activity.utils.toast
@@ -79,8 +83,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 toast("Loaded About")
             }
         }
-        loadFragment(R.id.frame_content, fragment)
+        fragment.let { loadFragment(R.id.frame_content, fragment) }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (!(currentFocus is EditText)) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

@@ -1,32 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".activity.LoginActivity">
 
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.design.widget.TextInputEditText
+        <EditText
             android:id="@+id/txt_login_pin"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:backgroundTint="@android:color/white"
             android:gravity="center"
-            android:hint="Enter Passcode"
-            android:inputType="number"
-            android:minWidth="150dp" />
-    </android.support.design.widget.TextInputLayout>
+            android:hint="PIN"
+            android:inputType="numberPassword"
+            android:maxLength="30"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        <ImageView
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:src="@drawable/ic_menu_send" />
+    </LinearLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_send" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Enter Your Master PIN. Default is 1111"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+    <!--<me.philio.pinentry.PinEntryView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:numDigits="4"
+        app:digitWidth="50dp"
+        app:digitHeight="50dp"
+        app:digitSpacing="20dp"
+        android:layout_gravity="center_horizontal"
+        app:digitTextColor="@android:color/holo_blue_light">
 
-</android.support.design.widget.CoordinatorLayout>
+    </me.philio.pinentry.PinEntryView>-->
+    <com.eyalbira.loadingdots.LoadingDots xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/loading_dots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:visibility="gone"
+        app:LoadingDots_auto_play="true"
+        app:LoadingDots_dots_color="@android:color/white"
+        app:LoadingDots_dots_count="25"
+        app:LoadingDots_dots_size="12dp"
+        app:LoadingDots_dots_space="1dp"
+        app:LoadingDots_jump_duration="400"
+        app:LoadingDots_jump_height="50dp"
+        app:LoadingDots_loop_duration="2000"
+        app:LoadingDots_loop_start_delay="100"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

@@ -4,6 +4,7 @@ package com.kaiser.passwordmanager.fragment
 import android.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,7 @@ class PasswordListFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.title = "My Secret Book"
         initialise() //database,worker thread,bottom show/hide listener
         initialiseAddCredentials()
     }
@@ -40,13 +42,17 @@ class PasswordListFragment : Fragment() {
             dbPassword = PasswordDatabase.getInstance(it)
             initialiseRecyclerView()
 
-            tv_add_credentials.setOnClickListener {
+            tv_add_credentials?.setOnClickListener {
                 val sheetBehavior = BottomSheetBehavior.from(bottom_sheet_root)
                 if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                     sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    tv_add_credentials?.setText(getString(R.string.close))
                 } else {
                     sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    tv_add_credentials?.setText(getString(R.string.add_credentials))
                 }
+
+
             }
         }
     }
@@ -67,8 +73,9 @@ class PasswordListFragment : Fragment() {
             listOfPasswordModel?.let {
                 activity?.runOnUiThread(Runnable {
                     adapterPasswordListAdapter = PasswordListAdapter(it, activity?.applicationContext)
-                    recyclerView.adapter = adapterPasswordListAdapter
-                    recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
+                    recyclerView?.adapter = adapterPasswordListAdapter
+                    recyclerView?.layoutManager = LinearLayoutManager(activity?.applicationContext)
+                                                //GridLayoutManager(activity?.applicationContext, 2)
                 })
             }
         })
@@ -77,11 +84,11 @@ class PasswordListFragment : Fragment() {
     }
 
     private fun initialiseAddCredentials() {
-        btn_add_credentials?.setOnClickListener {
+        btn_save_credentials?.setOnClickListener {
             var msg = when {
-                txt_title.text.toString().isBlank() -> "Title can't be blank"
-                txt_username.text.toString().isBlank() -> "Username can't be blank"
-                txt_password.text.toString().isBlank() -> "Password can't be blank"
+                txt_title?.text.toString().isBlank() -> "Title can't be blank"
+                txt_username?.text.toString().isBlank() -> "Username can't be blank"
+                txt_password?.text.toString().isBlank() -> "Password can't be blank"
                 else -> "All good.Trying to save.."
             }
             activity?.toast(msg)
@@ -89,19 +96,26 @@ class PasswordListFragment : Fragment() {
             if (msg.contains("blank")) return@setOnClickListener //missing data.Return back without saving
 
             //all good.Let's save the data
-            var passwordModel = PasswordModel(title = txt_title.text.toString(),
-                    username = txt_username.text.toString(),
-                    password = txt_password.text.toString())
+            var passwordModel = PasswordModel(title = txt_title?.text.toString(),
+                    username = txt_username?.text.toString(),
+                    password = txt_password?.text.toString())
             //using a new task/thread for queries, to avoid it on main thread as per "room" norms
             dbWorkerThread.postTask(Runnable {
                 dbPassword?.passwordDao()?.insert(passwordModel)
                 activity?.runOnUiThread {
                     adapterPasswordListAdapter?.addItem(passwordModel)
                     activity?.toast("Congrats!!. Data Saved")
-                    tv_add_credentials.performClick()
+                    btn_clear_credentials?.performClick()
+                    tv_add_credentials?.performClick()
                 }
             })
         }
+        btn_clear_credentials?.setOnClickListener {
+            txt_title?.text?.clear()
+            txt_username?.text?.clear()
+            txt_password?.text?.clear()
+        }
+
     }
 
 }
